@@ -40,7 +40,7 @@
     "allowUnlockWithoutCloud": false,
     "dedupeWindowMs": 5000,
     "unlock": {
-      "method": "generic-tcp",
+      "method": "noop",
       "timeoutMs": 5000,
       "tcpHexCommand": "",
       "externalCommand": "",
