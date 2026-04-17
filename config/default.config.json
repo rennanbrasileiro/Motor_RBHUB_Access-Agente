@@ -28,7 +28,7 @@
   },
   "network": {
     "proxyUrl": "http://tmws.sefaz.pe.gov.br:8080",
-    "useProxy": true
+    "useProxy": false
   },
   "device": {
     "mode": "file-watch",

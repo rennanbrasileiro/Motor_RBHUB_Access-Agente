@@ -16,18 +16,18 @@ class RBHubApiClient {
         this.config = config;
 
         // =========================================================
-        // 🔧 CONFIGURAÇÃO DE PROXY (PADRÃO FINAL)
+        // ðŸ”§ CONFIGURAÃ‡ÃƒO DE PROXY (PADRÃƒO FINAL)
         // =========================================================
 
-        // ✔ Usa proxy do config (produção)
+        // âœ” Usa proxy do config (produÃ§Ã£o)
         const useProxy = !!config?.network?.useProxy;
         const proxyUrl = config?.network?.proxyUrl || "";
 
-        // 🔥 DEBUG FORÇADO (SEFAZ / AMBIENTE BLOQUEADO)
-        // 👉 USAR SOMENTE SE DER PROBLEMA DE REDE
-        // 👉 DEPOIS REMOVER
-        const FORCE_PROXY = true; 
-        const FORCE_PROXY_URL = "http://tmws.sefaz.pe.gov.br:8080";
+        // ðŸ”¥ DEBUG FORÃ‡ADO (SEFAZ / AMBIENTE BLOQUEADO)
+        // ðŸ‘‰ USAR SOMENTE SE DER PROBLEMA DE REDE
+        // ðŸ‘‰ DEPOIS REMOVER
+        const FORCE_PROXY = false; 
+        const FORCE_PROXY_URL = null;
 
         const axiosConfig = {
             baseURL: config.cloud.apiUrl,
@@ -42,23 +42,23 @@ class RBHubApiClient {
         };
 
         // =========================================================
-        // 🌐 DECISÃO FINAL DE PROXY
+        // ðŸŒ DECISÃƒO FINAL DE PROXY
         // =========================================================
 
         if (FORCE_PROXY) {
-            console.log("[RBHUB] 🔥 FORÇANDO PROXY:", FORCE_PROXY_URL);
+            console.log("[RBHUB] ðŸ”¥ FORÃ‡ANDO PROXY:", FORCE_PROXY_URL);
 
             axiosConfig.httpsAgent = new https_proxy_agent_1.HttpsProxyAgent(FORCE_PROXY_URL);
             axiosConfig.proxy = false;
 
         } else if (useProxy && proxyUrl) {
-            console.log("[RBHUB] 🌐 PROXY CONFIG:", proxyUrl);
+            console.log("[RBHUB] ðŸŒ PROXY CONFIG:", proxyUrl);
 
             axiosConfig.httpsAgent = new https_proxy_agent_1.HttpsProxyAgent(proxyUrl);
             axiosConfig.proxy = false;
 
         } else {
-            console.log("[RBHUB] 🚀 SEM PROXY (CONEXÃO DIRETA)");
+            console.log("[RBHUB] ðŸš€ SEM PROXY (CONEXÃƒO DIRETA)");
         }
 
         this.http = axios_1.default.create(axiosConfig);
@@ -75,7 +75,7 @@ class RBHubApiClient {
             return response.data ?? { ok: true };
 
         } catch (error) {
-            console.error("❌ ERRO REAL HEARTBEAT:",
+            console.error("âŒ ERRO REAL HEARTBEAT:",
                 error?.response?.data ||
                 error?.code ||
                 error?.message ||
@@ -106,7 +106,7 @@ class RBHubApiClient {
             return response.data ?? { ok: true };
 
         } catch (error) {
-            console.error("❌ ERRO REAL EVENT:",
+            console.error("âŒ ERRO REAL EVENT:",
                 error?.response?.data ||
                 error?.code ||
                 error?.message ||
@@ -138,7 +138,7 @@ class RBHubApiClient {
             return response.data ?? { ok: true };
 
         } catch (error) {
-            console.error("❌ ERRO REAL VALIDATE:",
+            console.error("âŒ ERRO REAL VALIDATE:",
                 error?.response?.data ||
                 error?.code ||
                 error?.message ||
@@ -167,7 +167,7 @@ class RBHubApiClient {
             return response.data ?? { ok: true };
 
         } catch (error) {
-            console.error("❌ ERRO REAL ACK:",
+            console.error("âŒ ERRO REAL ACK:",
                 error?.response?.data ||
                 error?.code ||
                 error?.message ||
