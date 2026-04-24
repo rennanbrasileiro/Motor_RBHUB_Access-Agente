@@ -1,0 +1,67 @@
+{
+    "cloud":  {
+                  "apiUrl":  "https://ptywquctuuyphgosvbwk.supabase.co/functions/v1/integration-api",
+                  "apiKey":  "658756d441ccc1b1d026a177e9fc841caa750f0147ccc4f285380b5df4c0adef",
+                  "tenantId":  "82f9d53b-c23b-4ee1-897b-1047e4306587",
+                  "deviceId":  "0319eb1e-611e-4612-98b5-3f7d479bdfdf",
+                  "requestTimeoutMs":  30000
+              },
+    "agent":  {
+                  "name":  "RBHub Access Agent",
+                  "environment":  "production",
+                  "siteName":  "Recepcao Principal",
+                  "httpPort":  3001,
+                  "logLevel":  "info",
+                  "heartbeatIntervalMs":  30000,
+                  "syncIntervalMs":  5000,
+                  "commandPollIntervalMs":  7000,
+                  "clockDriftToleranceMs":  60000,
+                  "offlineCacheDays":  7,
+                  "enableLocalUi":  true
+              },
+    "storage":  {
+                    "databasePath":  "./database/agent.db",
+                    "logsPath":  "./logs",
+                    "maxLogFiles":  10,
+                    "maxLogSize":  "20m",
+                    "statePath":  "./database/agent-state.json"
+                },
+    "network":  {
+                    "proxyUrl":  "",
+                    "useProxy":  false
+                },
+    "device":  {
+                   "mode":  "file-watch",
+                   "name":  "Topdata Revolution Bio",
+                   "ip":  "172.17.251.250",
+                   "port":  3570,
+                   "cardDigits":  14,
+                   "timezone":  "America/Recife",
+                   "allowUnlockWithoutCloud":  false,
+                   "dedupeWindowMs":  5000,
+                   "unlock":  {
+                                  "method":  "generic-tcp",
+                                  "timeoutMs":  5000,
+                                  "tcpHexCommand":  "",
+                                  "externalCommand":  "",
+                                  "externalCommandArgs":  [
+
+                                                          ],
+                                  "bridgeCommand":  "",
+                                  "bridgeArgs":  [
+
+                                                 ]
+                              },
+                   "fileWatch":  {
+                                     "path":  "C:/Topdata/exportacao_acessos.txt",
+                                     "encoding":  "latin1",
+                                     "ignoreInitial":  false,
+                                     "debounceMs":  300,
+                                     "parser":  "topaccess-export"
+                                 }
+               },
+    "security":  {
+                     "localUiToken":  "change-me-local-ui-token",
+                     "allowedCorsOrigin":  "*"
+                 }
+}

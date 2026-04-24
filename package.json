@@ -1,0 +1,53 @@
+{
+  "name": "rbhub-access-agent",
+  "version": "1.0.0",
+  "description": "RBHub Access Agent - serviço local para integração entre RBHub Access Cloud e dispositivos físicos de controle de acesso.",
+  "main": "dist/main.js",
+  "type": "commonjs",
+  "bin": {
+    "rbhub-access-agent": "dist/main.js"
+  },
+  "pkg": {
+    "targets": [
+      "node20-win-x64"
+    ],
+    "outputPath": "release",
+    "assets": [
+      "src/server/static/**/*",
+      "config/default.config.json",
+      "installer/**/*"
+    ]
+  },
+  "scripts": {
+    "clean": "rimraf dist release",
+    "build": "tsc -p tsconfig.json",
+    "dev": "ts-node src/main.ts",
+    "start": "node dist/main.js",
+    "package:win": "npm run build && pkg .",
+    "service:install": "node dist/installer/installService.js",
+    "service:uninstall": "node dist/installer/uninstallService.js",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "check": "npm run lint",
+    "db:reset": "node dist/scripts/resetDatabase.js"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "better-sqlite3": "^11.10.0",
+    "chokidar": "^4.0.3",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "node-windows": "^1.0.0-beta.8",
+    "sqlite3": "^6.0.1",
+    "winston": "^3.17.0",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.1",
+    "pkg": "^5.8.1",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

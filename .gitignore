@@ -1,0 +1,16 @@
+﻿node_modules/
+node/
+logs/
+database/
+backup/
+*.log
+*.tmp
+*.cache
+
+topdata-sdk/*.dll
+topdata-sdk/*.ocx
+topdata-sdk/*.exe
+topdata-sdk/msvbvm60.dll
+
+.vs/
+.env
