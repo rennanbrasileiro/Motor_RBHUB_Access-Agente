@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RBHub Access Agent</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #0b1f3a; color: #fff; }
+    header { padding: 20px; background: #102b52; }
+    main { padding: 20px; display: grid; grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); gap: 16px; }
+    .card { background: #fff; color: #13233b; border-radius: 14px; padding: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+    h1,h2 { margin: 0 0 12px; }
+    pre { white-space: pre-wrap; word-break: break-word; background: #f4f7fb; padding: 12px; border-radius: 10px; max-height: 320px; overflow: auto; }
+    button { background: #163d75; color: #fff; border: 0; border-radius: 10px; padding: 10px 14px; cursor: pointer; }
+    input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccd5e1; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>RBHub Access Agent</h1>
+    <div>Painel local de diagnóstico</div>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Status</h2>
+      <pre id="status">carregando...</pre>
+      <button onclick="loadStatus()">Atualizar</button>
+    </section>
+    <section class="card">
+      <h2>Unlock de teste</h2>
+      <input id="reason" placeholder="Motivo do teste" value="manual-test" />
+      <br /><br />
+      <button onclick="testUnlock()">Executar unlock</button>
+      <pre id="unlockResult"></pre>
+    </section>
+    <section class="card">
+      <h2>Eventos recentes</h2>
+      <pre id="events">carregando...</pre>
+    </section>
+    <section class="card">
+      <h2>Logs locais</h2>
+      <pre id="logs">carregando...</pre>
+    </section>
+  </main>
+  <script>
+    async function loadStatus() {
+      const [statusRes, eventsRes, logsRes] = await Promise.all([
+        fetch('/api/status'),
+        fetch('/api/events/recent'),
+        fetch('/api/logs')
+      ]);
+      document.getElementById('status').textContent = JSON.stringify(await statusRes.json(), null, 2);
+      document.getElementById('events').textContent = JSON.stringify(await eventsRes.json(), null, 2);
+      document.getElementById('logs').textContent = JSON.stringify(await logsRes.json(), null, 2);
+    }
+    async function testUnlock() {
+      const reason = document.getElementById('reason').value;
+      const res = await fetch('/api/unlock/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reason })
+      });
+      document.getElementById('unlockResult').textContent = JSON.stringify(await res.json(), null, 2);
+      loadStatus();
+    }
+    loadStatus();
+    setInterval(loadStatus, 5000);
+  </script>
+</body>
+</html>
